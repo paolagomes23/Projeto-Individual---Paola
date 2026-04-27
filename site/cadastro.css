@@ -1,0 +1,183 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(rgb(241, 237, 233, 0.92), rgb(241, 237, 233, 0.92)),
+              url('fundoMusical.png');
+}
+
+
+.containerSuperior {
+  width: 100%;
+  margin: auto;
+  background-color: rgb(114, 60, 16);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.indices {
+  list-style: none; 
+  display: flex;
+  margin: 20px;
+  font-size: 18px;
+}
+
+.botao1 {
+  display: flex;
+  align-items: center;
+  padding: 7px 23px;
+  gap: 8px;
+
+  text-decoration: none;
+  color: white; 
+  background-color:rgb(197, 112, 63);
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.botao1 img{
+    width: 27px;
+}
+
+.container {
+    border: solid rgb(75, 44, 9) 2px;
+    background-color: rgb(255, 255, 255);
+    width: 40%;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 30px;
+    margin-top:60px;
+    margin-bottom:90px ;
+}
+
+.cadastro img{
+    width: 250px;
+}
+
+.cadastro {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cadastro h2 {
+    margin-top: -10px;
+    color: rgb(75, 44, 9);
+    font-size: 30px;
+}
+
+.cadastro p {
+    margin-top: -5px;
+    color: #5c4033;
+    text-align: center;
+    font-size: 18px;
+}
+
+.formulario {
+    width: 100%;
+    height: 50%;
+    color: rgb(46, 22, 3);
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+
+.campo span {
+    width: 450px;
+    font-size: large;
+    font-weight: 600;
+    padding-top: 15px;
+    color: rgb(46, 43, 43);
+}
+
+.campo input {
+    width: 450px;
+    height: 43px;
+    border-radius: 10px;
+
+    margin: auto;
+    border: solid 1px #7e5d2d;
+    background-color: rgb(226, 206, 175, 0.7) ;
+}
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.botao {
+    margin-top: 30px;
+    width: 300px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 7px;
+    background: linear-gradient(to right, #5c4033 11%, #533a03 71%);
+    border: none;
+}
+
+.botao:hover {
+    cursor: pointer;
+    scale: 1.05;
+    box-shadow: 0px 6px 8px rgb(41, 8, 8);
+    transition: all 250ms;
+}
+
+.cadastre {
+    color: #5c4033;
+}
+
+a {
+    color: #5c4033;
+}
+
+.erro {
+    width: 450px;
+    margin-top: 7px;
+    color: rgb(184, 43, 18);
+    font-size: 16px;
+}
+
+
+
+.final {
+  background-color: #6b3f1d; 
+  color: white;
+  padding: 23px 0;
+  width: 100%;
+  margin-top: auto;
+}
+
+.final .container2 {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.final h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.final h4 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: normal;
+}
+
+.versao {
+  font-size: 12px;
+  opacity: 0.7;
+}
