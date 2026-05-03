@@ -43,7 +43,7 @@ body {
 .banner {
   height: 460px;
   background: linear-gradient(rgba(150, 79, 31, 0.82), rgba(121, 59, 18, 0.85)),
-              url('../assets/imgs/violinoBanner.png');
+              url('violinoBanner.png');
   background-size: cover;
 
   display: flex;
