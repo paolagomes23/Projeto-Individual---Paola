@@ -43,7 +43,7 @@ body {
 .banner {
   height: 460px;
   background: linear-gradient(rgba(150, 79, 31, 0.82), rgba(121, 59, 18, 0.85)),
-              url('violinoBanner.png');
+              url('../assets/imgs/violinoBanner.png');
   background-size: cover;
 
   display: flex;
@@ -79,42 +79,110 @@ body {
 }
 
 
-.boxes{
-  width: 100%;
+.meio{
+  background: linear-gradient(rgb(241, 237, 233, 0.92), rgb(241, 237, 233, 0.92));
   margin: auto;
-  background-color: #f1ede9;
-  padding: 50px 0;
+  padding: 60px 20px;
 }
 
-.container {
-  display: grid; 
-  gap: 25px;
-  margin-left: 30px;
-  margin-right: 30px;
-}
-
-.box {
-  background: #fff;
+.divisao{
+  background: linear-gradient(rgba(243, 240, 238, 0.92), rgba(243, 240, 237, 0.92));
+  margin-bottom:100px;
   padding: 40px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.container3 {
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+
+.container3 h4 {
+  font-size: 42px;
+  margin-bottom: 10px;
+  margin-top: 50px;
+  color: #5a3e2b;
+  text-align: center;
+}
+
+.container3 p {
+  font-size: 22px;
+  color: #666;
+  line-height: 1.5;
+  text-align: center;
+}
+
+
+.container-caracteristicas {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-propriedades {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-pauta {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-claves {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.container-claves2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+
+.box {
+  background: #ffffff;
+  border: solid rgb(114, 60, 16) 2px;
+  padding: 40px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 .box img{
-  width: 70px;
+  width: 1000px;
+  margin: auto;
 }
 
 .box:hover {
-  transform: translateY(-5px);
-}
-
-.link-box {
-  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
 }
 
 .box h4 {
   font-size: 25px;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   color: #5a3e2b;
 }
 
@@ -122,38 +190,15 @@ body {
   font-size: 18px;
   color: #666;
   line-height: 1.5;
-}
-
-
-.explicacao {
-  background-color: #d6c3a7;
-  padding: 60px 0;
-  text-align: center;
-}
-
-.explicacao .container {
-  width: 70%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.explicacao h4 {
-  font-size: 26px;
-  margin-bottom: 5px;
-  color: #4a2e1f;
-}
-
-.explicacao p {
-  font-size: 18px;
-  margin-bottom: 0;
-  color: #5c4033;
-  line-height: 1.8;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 
 .final {
-  background-color: #6b3f1d; 
+  background-color: #6b3f1d;
+  margin-top: -60px; 
   color: white;
   padding: 23px 0;
 }
