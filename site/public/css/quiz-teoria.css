@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+    font-family: "Montserrat", sans-serif;
+    background: linear-gradient(rgb(241, 237, 233, 0.95), rgb(241, 237, 233, 0.95)),
+        url('../assets/imgs/fundoMusical.png');
+}
+
+.container {
+    display: flex;
+    height: 115vh;
+}
+
+.lateral {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 240px;
+
+    background: linear-gradient(180deg, rgb(114, 60, 16));
+    color: white;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: -150px;
+    margin-left: 30px;
+}
+
+.logo img {
+    width: 400px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.botao {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 18px;
+    border-radius: 10px;
+
+    color: white;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.botao img {
+    width: 28px;
+}
+
+.botao:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: translateX(5px);
+}
+
+.agora {
+    background: linear-gradient(135deg, rgb(197, 112, 63), rgb(160, 85, 40));
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sair {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+
+
+
+.meio {
+    flex: 1;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    text-align: center;
+}
+
+button {
+    margin-top: 20px;
+    width: 35%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background-color: #b39f8bce;
+    color: rgb(77, 40, 10);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5e432e86;
+}
+
+#pontuacaoEJogo {
+    width: 60%;
+    padding: 100px;
+    border-radius: 12px;
+
+    color: rgb(68, 31, 8);
+    background: #eceae7;
+    border: solid rgb(99, 52, 13) 2px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#jogo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: -30px;
+    margin-top: -80px;
+}
+
+#perguntaDaQuestaoAtual {
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+#opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option {
+    display: block;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #b39f8bce;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option:hover {
+    background-color: #6d3e1c86;
+}
+
+.radio {
+    display: none;
+}
+
+
+.text-success-with-bg {
+    background-color: #4caf50 !important;
+    color: white;
+}
+
+.text-danger-with-bg {
+    background-color: #e53935 !important;
+    color: white;
+}
+
+.box-final {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 180px;
+}
+
+.box-final h2 {
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.box-final span {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.botao-final {
+    display: block;
+    padding: 15px 25px;
+    width: 200px;
+    text-align: center;
+    justify-content: center;
+}

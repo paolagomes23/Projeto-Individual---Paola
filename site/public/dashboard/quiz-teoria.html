@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violino | Arco e Cordas</title>
+
+
+    <link rel="stylesheet" href="../css/quiz-teoria.css">
+
+<body onload="iniciarPagina()">
+
+    <div class="container">
+        <div class="lateral">
+
+            <div class="logo">
+                <img src="../assets/imgs/logo branca.png">
+            </div>
+
+            <div class="menu">
+                <a class="botao" href="dash-inicio.html">
+                    <img src="../assets/imgs/inicio.png">
+                    <span>Dashboard</span>
+                </a>
+
+                <a class="botao agora">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Teoria Musical</span>
+                </a>
+
+                <a class="botao" href="quiz-pratica.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Prática Musical</span>
+                </a>
+
+                <a class="botao" href="quiz-historia.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - A História</span>
+                </a>
+
+                <a class="botao" href="quiz-partes.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Partes do Violino</span>
+                </a>
+
+                <a class="botao sair" href="../index.html">
+                    <img src="../assets/imgs/sair.png">
+                    <span>Sair</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="meio">
+
+            <div id="pontuacaoEJogo">
+
+                <div id="inicioquiz" class="quiz">
+                    <h1>Quiz - Teoria Musical</h1>
+                    <p>Clique abaixo para iniciar</p>
+                    <button id="btnIniciarQuiz" onclick="iniciarQuiz()">Iniciar</button>
+                </div>
+
+                <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+                    <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                        <span class="width-fit-content"><span id="spanCertas"></span></span>
+                        <span class="width-fit-content"> <span id="spanErradas"></span></span>
+                    </div>
+
+                    <div id="pontuacaoFinalJogo" class="box-final">
+                        <h2>Pontuação Final</h2>
+                        <span id="spanPontuacaoFinal"></span>
+                        <p id="msgFinal"></p>
+                        <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-final">Tentar
+                            novamente</button>
+                    </div>
+                </div>
+
+                <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+                    <div id="infoQuestao" class="padding-8">
+                        <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span
+                                id="qtdQuestoes"></span> questões.</span>
+                    </div>
+
+                    <div id="perguntaDaQuestaoAtual" class="padding-8">
+                        <span id="spanQuestaoExibida" class="text-bold"></span>
+                    </div>
+
+                    <div id="opcoes" class="flex-colunar padding-8">
+                        <span>
+                            <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA"
+                                onclick="responder()" />
+                            <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB"
+                                onclick="responder()" />
+                            <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC"
+                                onclick="responder()" />
+                            <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                        </span>
+                        <span>
+                            <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD"
+                                onclick="responder()" />
+                            <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+    let listaDeQuestoes = [
+  {
+    "pergunta": "Como a música pode ser definida?",
+    "alternativaA": "Conjunto de sons aleatórios",
+    "alternativaB": "Forma de expressão através do som",
+    "alternativaC": "Sequência apenas de instrumentos",
+    "alternativaD": "Estudo exclusivo da harmonia",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Quais são os três principais elementos da música?",
+    "alternativaA": "Notas, cifras e pausas",
+    "alternativaB": "Som, silêncio e intensidade",
+    "alternativaC": "Melodia, harmonia e ritmo",
+    "alternativaD": "Altura, timbre e duração",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O que caracteriza a melodia?",
+    "alternativaA": "Conjunto de sons sucessivos",
+    "alternativaB": "Sons executados simultaneamente",
+    "alternativaC": "Variação de intensidade sonora",
+    "alternativaD": "Organização rítmica das pausas",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "Na música, o que é harmonia?",
+    "alternativaA": "Sequência de notas isoladas",
+    "alternativaB": "Organização do tempo musical",
+    "alternativaC": "Conjunto de sons simultâneos",
+    "alternativaD": "Mudança de intensidade sonora",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O ritmo está relacionado à:",
+    "alternativaA": "Altura das notas musicais",
+    "alternativaB": "Organização do tempo musical",
+    "alternativaC": "Diferença sonora dos instrumentos",
+    "alternativaD": "Afinação das notas executadas",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "O que significa altura na música?",
+    "alternativaA": "Duração do som executado",
+    "alternativaB": "Volume do instrumento musical",
+    "alternativaC": "Característica grave ou aguda",
+    "alternativaD": "Velocidade da execução sonora",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "A duração de um som representa:",
+    "alternativaA": "O tempo que ele permanece",
+    "alternativaB": "A intensidade da execução",
+    "alternativaC": "A altura das notas tocadas",
+    "alternativaD": "A qualidade sonora do timbre",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "O que define a intensidade do som?",
+    "alternativaA": "Sua velocidade de execução",
+    "alternativaB": "Seu caráter grave ou agudo",
+    "alternativaC": "Seu volume forte ou fraco",
+    "alternativaD": "Sua posição no pentagrama",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O timbre permite identificar:",
+    "alternativaA": "A duração de uma nota",
+    "alternativaB": "O tempo de execução musical",
+    "alternativaC": "A diferença entre instrumentos",
+    "alternativaD": "A intensidade de cada acorde",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O que é a pauta musical (pentagrama)?",
+    "alternativaA": "Conjunto de quatro linhas",
+    "alternativaB": "Estrutura com cinco linhas",
+    "alternativaC": "Sistema formado por sete espaços",
+    "alternativaD": "Quadro usado para acordes",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual é a principal função da pauta musical?",
+    "alternativaA": "Controlar a intensidade sonora",
+    "alternativaB": "Registrar notas e símbolos",
+    "alternativaC": "Definir o ritmo da música",
+    "alternativaD": "Modificar a altura das notas",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "As claves musicais servem para:",
+    "alternativaA": "Representar pausas musicais",
+    "alternativaB": "Definir o ritmo da partitura",
+    "alternativaC": "Indicar nomes das notas",
+    "alternativaD": "Aumentar o valor das figuras",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Em qual linha fica posicionada a clave de Sol?",
+    "alternativaA": "Primeira linha da pauta",
+    "alternativaB": "Segunda linha da pauta",
+    "alternativaC": "Terceira linha da pauta",
+    "alternativaD": "Quinta linha da pauta",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "A clave de Fá é mais utilizada para sons:",
+    "alternativaA": "Agudos e brilhantes",
+    "alternativaB": "Médios e suaves",
+    "alternativaC": "Graves e profundos",
+    "alternativaD": "Altos e intensos",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O que representam as figuras musicais?",
+    "alternativaA": "A altura das notas musicais",
+    "alternativaB": "A duração dos sons musicais",
+    "alternativaC": "Os instrumentos da orquestra",
+    "alternativaD": "Os diferentes estilos musicais",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Na música, o que significa uma pausa?",
+    "alternativaA": "Execução de nota aguda",
+    "alternativaB": "Mudança de intensidade sonora",
+    "alternativaC": "Momento de silêncio musical",
+    "alternativaD": "Sequência rápida de notas",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Qual é a função do ponto de aumento?",
+    "alternativaA": "Diminuir o valor da nota",
+    "alternativaB": "Dobrar a duração da pausa",
+    "alternativaC": "Aumentar metade do valor",
+    "alternativaD": "Modificar a intensidade sonora",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Os acidentes musicais servem para:",
+    "alternativaA": "Alterar a altura das notas",
+    "alternativaB": "Modificar a duração sonora",
+    "alternativaC": "Aumentar o volume musical",
+    "alternativaD": "Determinar o ritmo da peça",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "Na teoria musical, um tom corresponde a:",
+    "alternativaA": "Um único semitom musical",
+    "alternativaB": "Dois semitons consecutivos",
+    "alternativaC": "Três semitons ascendentes",
+    "alternativaD": "Quatro semitons completos",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Quantas notas existem na escala cromática?",
+    "alternativaA": "Sete notas musicais",
+    "alternativaB": "Oito notas completas",
+    "alternativaC": "Dez notas sonoras",
+    "alternativaD": "Doze notas diferentes",
+    "alternativaCorreta": "alternativaD"
+  }
+];
+
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+
+    function iniciarPagina() {
+        onloadEsconder();
+        buscarPerguntas();
+    }
+
+    function onloadEsconder() {
+        document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "none"
+        document.getElementById('btnTentarNovamente').style.display = "none"
+        document.getElementById('pontuacaoFinalJogo').style.display = "none"
+    }
+
+
+    function iniciarQuiz() {
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+        document.getElementById('inicioquiz').style.display = "none"
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+        document.getElementById('pontuacao').style.display = "flex"
+
+        preencherHTMLcomQuestaoAtual(0)
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+    }
+
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+    }
+
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let alternativaCorreta = null
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+
+                document.getElementById(alternativaCorreta)
+                    .classList.add("text-success-with-bg")
+
+                pontuacaoFinal++
+                certas++
+                numeroDaQuestaoAtual++
+
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+
+                const wrongLabelId = option.labels[0].id
+
+                document.getElementById(wrongLabelId)
+                    .classList.add("text-danger-with-bg")
+
+                document.getElementById(alternativaCorreta)
+                    .classList.add("text-success-with-bg")
+
+                tentativaIncorreta++
+                erradas++
+                numeroDaQuestaoAtual++
+            }
+        })
+    };
+
+
+
+    function responder() {
+        habilitarAlternativas(false)
+        checarResposta()
+
+        setTimeout(() => {
+            avancar()
+        }, 1000)
+    }
+
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+
+
+    function avancar() {
+        desmarcarRadioButtons()
+        limparCoresBackgroundOpcoes()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+    }
+
+
+    function finalizarJogo() {
+
+        console.log(sessionStorage.ID_USUARIO);
+        console.log(pontuacaoFinal);
+
+        fetch("/quiz/salvarTentativa", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                fkUsuario: sessionStorage.ID_USUARIO,
+                fkQuiz: 1,
+                pontuacao: pontuacaoFinal
+            })
+        })
+            .then(function (resposta) {
+                console.log("Resultado salvo!");
+            });
+
+
+        document.getElementById('jogo').style.display = "none"
+        document.getElementById('pontuacaoFinalJogo').style.display = "flex"
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+        document.getElementById('btnTentarNovamente').style.display = "flex"
+    }
+
+
+    function tentarNovamente() {
+        window.location.reload()
+    }
+
+</script>
