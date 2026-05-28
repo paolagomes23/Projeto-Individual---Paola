@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violino | Arco e Cordas</title>
+
+
+    <link rel="stylesheet" href="../css/dash-inicio.css">
+
+<body>
+
+    <div class="container">
+
+        <div class="lateral">
+
+            <div class="logo">
+                <img src="../assets/imgs/logo branca.png">
+            </div>
+
+            <div class="bem-vindo">
+                <h3>Olá, <span id="nome_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="menu">
+                <a class="botao agora">
+                    <img src="../assets/imgs/inicio.png">
+                    <span>Dashboard</span>
+                </a>
+
+                <a class="botao" href="quiz-teoria.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Teoria Musical</span>
+                </a>
+
+                <a class="botao" href="quiz-pratica.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Prática Musical</span>
+                </a>
+
+                <a class="botao" href="quiz-historia.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - A História</span>
+                </a>
+
+                <a class="botao" href="quiz-partes.html">
+                    <img src="../assets/imgs/jogo-branco.png">
+                    <span>Quiz - Partes do Violino</span>
+                </a>
+
+                <a class="botao sair" href="../index.html">
+                    <img src="../assets/imgs/sair.png">
+                    <span>Sair</span>
+                </a>
+            </div>
+
+
+        </div>
+
+        <div class="meio">
+
+            <div class="kpis">
+                <div class="kpi">
+                    <div class="kpi-titulo">
+                        <span>Tentativas totais</span>
+                    </div>
+                    <div class="kpi-valor">
+                        <span id="kpiTentativas">0</span>
+                    </div>
+                </div>
+
+                <div class="kpi">
+                    <div class="kpi-titulo">
+                        <span>Quizzes feitos</span>
+                    </div>
+                    <div class="kpi-valor">
+                        <span id="kpiQuizzes">0/4</span>
+                    </div>
+                </div>
+
+                <div class="kpi">
+                    <div class="kpi-titulo">
+                        <span>Média Geral (%)</span>
+                    </div>
+
+                    <div class="kpi-valor">
+                        <span id="kpiMedia">0%</span>
+                    </div>
+                </div>
+
+                <div class="kpi">
+                    <div class="kpi-titulo">
+                        <span>Perguntas respondidas</span>
+                    </div>
+                    <div class="kpi-valor">
+                        <span id="kpiPerguntas">0</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="graficos">
+                <div class="grafico">
+                    <div class="titulo">Comparação de quizzes</div>
+                    <canvas id="grafico1"></canvas>
+                </div>
+                <div class="grafico">
+                    <div class="titulo">Respostas Totais</div>
+                    <canvas id="grafico2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    Chart.defaults.color = '#000000';
+
+    fetch(`/quiz/buscarKPIs/${sessionStorage.ID_USUARIO}`)
+        .then(function (resposta) {
+            return resposta.json();
+        })
+        .then(function (dados) {
+
+            console.log(dados);
+
+            kpiTentativas.innerHTML = dados[0].tentativas;
+            kpiQuizzes.innerHTML = dados[0].quizzesFeitos + "/4";
+            kpiMedia.innerHTML = Number(dados[0].percentualAcertos).toFixed(1) + "%";
+            kpiPerguntas.innerHTML = dados[0].perguntasRespondidas;
+
+        });
+
+    buscarGraficoBarra();
+    buscarGraficoPizza();
+
+    function buscarGraficoBarra() {
+
+        fetch(`/quiz/buscarMediaQuiz/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (dados) {
+
+                console.log(dados);
+
+                let nomes = [];
+                let valores = [];
+                let tentativas = [];
+
+                for (let i = 0; i < dados.length; i++) {
+                    nomes.push(dados[i].titulo);
+                    valores.push(Number(dados[i].media));
+                    tentativas.push(dados[i].tentativas);
+                }
+
+                criarGraficoBarra(nomes, valores, tentativas);
+            });
+
+    }
+
+    function buscarGraficoPizza() {
+
+        fetch(`/quiz/buscarGraficoRedondo/${sessionStorage.ID_USUARIO}`)
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (dados) {
+
+                console.log(dados);
+
+                let acertos = dados[0].acertos || 0;
+                let erros = dados[0].erros || 0;
+
+                criarGraficoPizza(acertos, erros);
+            });
+
+    }
+
+    function criarGraficoBarra(nomes, valores, tentativas) {
+
+        new Chart(document.getElementById('grafico1'), {
+
+            type: 'bar',
+            data: {
+                labels: nomes,
+                datasets: [
+                    {
+                        label: 'Média por Quiz (%)',
+                        data: valores,
+                        backgroundColor: 'rgb(151, 98, 36)',
+                        borderColor: '#000000',
+                        borderWidth: 2,
+                        borderRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            afterLabel: function (context) {
+                                return `Tentativas: ${tentativas[context.dataIndex]}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+
+    function criarGraficoPizza(acertos, erros) {
+
+        new Chart(document.getElementById('grafico2'), {
+
+            type: 'pie',
+            data: {
+                labels: ['Acertos', 'Erros'],
+                datasets: [
+                    {
+                        label: 'Total',
+                        data: [acertos, erros],
+                        backgroundColor: [
+                            'rgb(79, 133, 9)',
+                            'rgb(156, 56, 9)'
+                        ],
+                        borderColor: 'rgba(41, 39, 38, 0.76)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+</script>

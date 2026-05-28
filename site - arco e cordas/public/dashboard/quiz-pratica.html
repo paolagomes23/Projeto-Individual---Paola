@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Violino | Arco e Cordas</title>
+
+
+  <link rel="stylesheet" href="../css/quiz-pratica.css">
+
+<body onload="iniciarPagina()">
+
+  <div class="container">
+    <div class="lateral">
+
+      <div class="logo">
+        <img src="../assets/imgs/logo branca.png">
+      </div>
+
+      <div class="menu">
+        <a class="botao" href="dash-inicio.html">
+          <img src="../assets/imgs/inicio.png">
+          <span>Dashboard</span>
+        </a>
+
+        <a class="botao" href="quiz-teoria.html">
+          <img src="../assets/imgs/jogo-branco.png">
+          <span>Quiz - Teoria Musical</span>
+        </a>
+
+        <a class="botao agora">
+          <img src="../assets/imgs/jogo-branco.png">
+          <span>Quiz - Prática Musical</span>
+        </a>
+
+        <a class="botao" href="quiz-historia.html">
+          <img src="../assets/imgs/jogo-branco.png">
+          <span>Quiz - A História</span>
+        </a>
+
+        <a class="botao" href="quiz-partes.html">
+          <img src="../assets/imgs/jogo-branco.png">
+          <span>Quiz - Partes do Violino</span>
+        </a>
+
+        <a class="botao sair" href="../index.html">
+          <img src="../assets/imgs/sair.png">
+          <span>Sair</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="meio">
+
+      <div id="pontuacaoEJogo">
+
+        <div id="inicioquiz" class="quiz">
+          <h1>Quiz - Prática Musical no Violino</h1>
+          <p>Clique abaixo para iniciar</p>
+          <button id="btnIniciarQuiz" onclick="iniciarQuiz()">Iniciar</button>
+        </div>
+
+        <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+          <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+            <span class="width-fit-content"><span id="spanCertas"></span></span>
+            <span class="width-fit-content"> <span id="spanErradas"></span></span>
+          </div>
+
+          <div id="pontuacaoFinalJogo" class="box-final">
+            <h2>Pontuação Final</h2>
+            <span id="spanPontuacaoFinal"></span>
+            <p id="msgFinal"></p>
+            <button onclick="tentarNovamente()" id="btnTentarNovamente" class="botao-final">Tentar novamente</button>
+          </div>
+        </div>
+
+        <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+          <div id="infoQuestao" class="padding-8">
+            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+              questões.</span>
+          </div>
+
+          <div id="perguntaDaQuestaoAtual" class="padding-8">
+            <span id="spanQuestaoExibida" class="text-bold"></span>
+          </div>
+
+          <div id="opcoes" class="flex-colunar padding-8">
+            <span>
+              <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA"
+                onclick="responder()" />
+              <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+            </span>
+            <span>
+              <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB"
+                onclick="responder()" />
+              <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+            </span>
+            <span>
+              <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC"
+                onclick="responder()" />
+              <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+            </span>
+            <span>
+              <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD"
+                onclick="responder()" />
+              <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  let listaDeQuestoes = [
+  {
+    "pergunta": "O que significa mudança de posição no violino?",
+    "alternativaA": "Trocar a música executada",
+    "alternativaB": "Mover a mão pelo braço",
+    "alternativaC": "Alterar a tensão do arco",
+    "alternativaD": "Modificar a afinação das cordas",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual é a principal função do arco?",
+    "alternativaA": "Regular a afinação das cordas",
+    "alternativaB": "Produzir som nas cordas",
+    "alternativaC": "Sustentar o corpo do violino",
+    "alternativaD": "Controlar o ritmo musical",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "O que é a técnica de vibrato?",
+    "alternativaA": "Movimento que varia levemente o som",
+    "alternativaB": "Troca rápida entre cordas",
+    "alternativaC": "Execução com notas separadas",
+    "alternativaD": "Pressão intensa sobre o arco",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "Qual hábito mais contribui para evoluir no violino?",
+    "alternativaA": "Evitar exercícios difíceis",
+    "alternativaB": "Praticar com foco e frequência",
+    "alternativaC": "Tocar apenas músicas simples",
+    "alternativaD": "Treinar somente apresentações",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual é a função do breu no arco?",
+    "alternativaA": "Aumentar o atrito nas cordas",
+    "alternativaB": "Reduzir a tensão do arco",
+    "alternativaC": "Afinar automaticamente o violino",
+    "alternativaD": "Proteger a madeira do braço",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "Qual corda possui o som mais agudo?",
+    "alternativaA": "Corda Sol (G)",
+    "alternativaB": "Corda Ré (D)",
+    "alternativaC": "Corda Lá (A)",
+    "alternativaD": "Corda Mi (E)",
+    "alternativaCorreta": "alternativaD"
+  },
+  {
+    "pergunta": "O que caracteriza a técnica de legato?",
+    "alternativaA": "Notas curtas e separadas",
+    "alternativaB": "Notas rápidas e fortes",
+    "alternativaC": "Notas tocadas de forma conectada",
+    "alternativaD": "Notas executadas sem arco",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Qual é a função principal da mão direita?",
+    "alternativaA": "Pressionar as cordas no espelho",
+    "alternativaB": "Ajustar a afinação manualmente",
+    "alternativaC": "Controlar a pulsação musical",
+    "alternativaD": "Segurar e movimentar o arco",
+    "alternativaCorreta": "alternativaD"
+  },
+  {
+    "pergunta": "O que significa tocar em pizzicato?",
+    "alternativaA": "Usar o arco rapidamente",
+    "alternativaB": "Puxar as cordas com os dedos",
+    "alternativaC": "Executar notas com vibrato",
+    "alternativaD": "Produzir sons mais intensos",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual prática ajuda a melhorar a afinação?",
+    "alternativaA": "Tocar sempre em alta velocidade",
+    "alternativaB": "Treinar ouvindo atentamente o som",
+    "alternativaC": "Aumentar a pressão do arco",
+    "alternativaD": "Trocar frequentemente de cordas",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "O que são escalas musicais?",
+    "alternativaA": "Modelos diferentes de violino",
+    "alternativaB": "Sequências organizadas de notas",
+    "alternativaC": "Movimentos técnicos do arco",
+    "alternativaD": "Tipos específicos de cordas",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual é a postura correta ao tocar violino?",
+    "alternativaA": "Violino apoiado no ombro esquerdo",
+    "alternativaB": "Instrumento apoiado sobre o colo",
+    "alternativaC": "Violino segurado à frente do corpo",
+    "alternativaD": "Instrumento apoiado no ombro direito",
+    "alternativaCorreta": "alternativaA"
+  },
+  {
+    "pergunta": "Qual frequência de prática é mais recomendada?",
+    "alternativaA": "Treinar apenas uma vez ao mês",
+    "alternativaB": "Praticar somente em apresentações",
+    "alternativaC": "Estudar regularmente durante a semana",
+    "alternativaD": "Treinar apenas quando estiver inspirado",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "O que significa praticar com metrônomo?",
+    "alternativaA": "Tocar com maior intensidade sonora",
+    "alternativaB": "Afinar as cordas automaticamente",
+    "alternativaC": "Executar seguindo um tempo constante",
+    "alternativaD": "Trocar o ritmo durante a música",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Por que estudar lentamente é importante?",
+    "alternativaA": "Permite tocar com maior volume",
+    "alternativaB": "Melhora precisão e coordenação",
+    "alternativaC": "Evita o desgaste das cordas",
+    "alternativaD": "Facilita trocar de instrumento",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "O que é recomendado ao cometer erros no estudo?",
+    "alternativaA": "Ignorar e continuar tocando",
+    "alternativaB": "Parar e corrigir cuidadosamente",
+    "alternativaC": "Trocar imediatamente de música",
+    "alternativaD": "Aumentar a velocidade da prática",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual é a função principal do afinador?",
+    "alternativaA": "Controlar o ritmo da música",
+    "alternativaB": "Ajudar no ajuste das cordas",
+    "alternativaC": "Produzir efeitos sonoros digitais",
+    "alternativaD": "Melhorar o volume do violino",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "O que caracteriza a técnica de staccato?",
+    "alternativaA": "Notas longas e conectadas",
+    "alternativaB": "Movimentos suaves com vibrato",
+    "alternativaC": "Notas curtas e separadas",
+    "alternativaD": "Execução lenta e contínua",
+    "alternativaCorreta": "alternativaC"
+  },
+  {
+    "pergunta": "Qual é a principal função da mão esquerda?",
+    "alternativaA": "Segurar e controlar o arco",
+    "alternativaB": "Pressionar cordas para formar notas",
+    "alternativaC": "Regular a intensidade do som",
+    "alternativaD": "Manter o ritmo da execução",
+    "alternativaCorreta": "alternativaB"
+  },
+  {
+    "pergunta": "Qual a importância do aquecimento antes de tocar?",
+    "alternativaA": "Deixar o som mais intenso",
+    "alternativaB": "Evitar lesões e melhorar desempenho",
+    "alternativaC": "Aumentar automaticamente a afinação",
+    "alternativaD": "Reduzir a tensão das cordas",
+    "alternativaCorreta": "alternativaB"
+  }
+];
+
+  let numeroDaQuestaoAtual = 0
+  let pontuacaoFinal = 0
+  let tentativaIncorreta = 0
+  let certas = 0
+  let erradas = 0
+  let quantidadeDeQuestoes = listaDeQuestoes.length
+
+  function iniciarPagina() {
+    onloadEsconder();
+    buscarPerguntas();
+  }
+
+  function onloadEsconder() {
+    document.getElementById('pontuacao').style.display = "none"
+    document.getElementById('jogo').style.display = "none"
+    document.getElementById('btnTentarNovamente').style.display = "none"
+    document.getElementById('pontuacaoFinalJogo').style.display = "none"
+  }
+
+
+  function iniciarQuiz() {
+    document.getElementById('jogo').style.display = "flex"
+    document.getElementById('btnIniciarQuiz').style.display = "none"
+    document.getElementById('inicioquiz').style.display = "none"
+    document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+    document.getElementById('pontuacao').style.display = "flex"
+
+    preencherHTMLcomQuestaoAtual(0)
+  }
+
+  function preencherHTMLcomQuestaoAtual(index) {
+    habilitarAlternativas(true)
+
+    const questaoAtual = listaDeQuestoes[index]
+    numeroDaQuestaoAtual = index
+    
+    console.log("questaoAtual")
+    console.log(questaoAtual)
+
+    document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+    document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+    document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+    document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+    document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+    document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+  }
+
+
+  function habilitarAlternativas(trueOrFalse) {
+    let opcaoEscolhida = trueOrFalse ? false : true
+
+    primeiraOpcao.disabled = opcaoEscolhida
+    segundaOpcao.disabled = opcaoEscolhida
+    terceiraOpcao.disabled = opcaoEscolhida
+    quartaOpcao.disabled = opcaoEscolhida
+  }
+
+
+  function checarResposta() {
+    const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+    const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+    const options = document.getElementsByName("option"); // recupera alternativas no html
+
+    let alternativaCorreta = null
+
+    options.forEach((option) => {
+      if (option.value === respostaQuestaoAtual) {
+        console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+        alternativaCorreta = option.labels[0].id
+      }
+    })
+
+    // verifica se resposta assinalada é correta
+    options.forEach((option) => {
+      if (option.checked === true && option.value === respostaQuestaoAtual) {
+
+        document.getElementById(alternativaCorreta)
+          .classList.add("text-success-with-bg")
+
+        pontuacaoFinal++
+        certas++
+        numeroDaQuestaoAtual++
+
+      } else if (option.checked && option.value !== respostaQuestaoAtual) {
+
+        const wrongLabelId = option.labels[0].id
+
+        document.getElementById(wrongLabelId)
+          .classList.add("text-danger-with-bg")
+
+        document.getElementById(alternativaCorreta)
+          .classList.add("text-success-with-bg")
+
+        tentativaIncorreta++
+        erradas++
+        numeroDaQuestaoAtual++
+      }
+    })
+  };
+
+
+
+  function responder() {
+    habilitarAlternativas(false)
+    checarResposta()
+
+    setTimeout(() => {
+      avancar()
+    }, 1000)
+  }
+
+
+  function limparCoresBackgroundOpcoes() {
+    const options = document.getElementsByName("option");
+    options.forEach((option) => {
+      document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+      document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+    })
+  }
+
+
+  function desmarcarRadioButtons() {
+    const options = document.getElementsByName("option");
+    for (let i = 0; i < options.length; i++) {
+      options[i].checked = false;
+    }
+  }
+
+
+  function avancar() {
+    desmarcarRadioButtons()
+    limparCoresBackgroundOpcoes()
+
+    if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+      preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+    } else {
+      finalizarJogo()
+    }
+  }
+
+
+  function finalizarJogo() {
+
+    console.log(sessionStorage.ID_USUARIO);
+    console.log(pontuacaoFinal);
+
+    fetch("/quiz/salvarTentativa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        fkUsuario: sessionStorage.ID_USUARIO,
+        fkQuiz: 2,
+        pontuacao: pontuacaoFinal
+      })
+    })
+      .then(function (resposta) {
+        console.log("Resultado salvo!");
+      });
+
+
+    document.getElementById('jogo').style.display = "none"
+    document.getElementById('pontuacaoFinalJogo').style.display = "flex"
+    document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+    document.getElementById('btnTentarNovamente').style.display = "flex"
+  }
+
+
+  function tentarNovamente() {
+    window.location.reload()
+  }
+
+</script>
